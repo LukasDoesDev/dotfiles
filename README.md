@@ -1,3 +1,7 @@
 # lukas's dotfiles
 
-test
+## Installing:
+
+```shell
+curl -fsSL https://raw.githubusercontent.com/LukasDoesDev/dotfiles/master/setup.sh | bash
+```
