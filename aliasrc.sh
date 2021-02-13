@@ -45,16 +45,18 @@ done
 function conf( )
 {
 	if [[ "$1" = 'nvim' ]]; then
-		e ~/.config/nvim/init.vim
+		e ~/dev/dotfiles/.config/nvim/init.vim
 	elif [[ "$1" = 'aliases' ]]; then
-		e ~/aliasrc.sh
-		source ~/aliasrc.sh
+		e ~/dev/dotfiles/aliasrc.sh
+		source ~/dev/dotfiles/aliasrc.sh
 	elif [[ "$1" = 'bashrc' ]]; then
-		e ~/.bashrc
-		source ~/.bashrc
+		e ~/dev/dotfiles/.bashrc
+		source ~/dev/dotfiles/.bashrc
 	elif [[ "$1" = 'bash_profile' ]]; then
-		e ~/.bash_profile
-		source ~/.bash_profile
+		e ~/dev/dotfiles/.bash_profile
+		source ~/dev/dotfiles/.bash_profile
+	elif [[ "$1" = 'sync' ]]; then
+    ~/dev/dotfiles/bootstrap.sh
 	else
 		echo Lukas\'s configuration utility
 		if [[ "$1" != '' ]]; then sh -c "echo \"$1\" config not found"; fi
@@ -63,6 +65,7 @@ function conf( )
 		echo aliases
 		echo bashrc
 		echo bash_profile
+    echo sync
 	fi
 }
 
