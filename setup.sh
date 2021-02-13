@@ -2,13 +2,14 @@
 { # This ensures the entire script is downloaded.
 
 set -e
-
-mkdir ${HOME}/dev/
+if [ ! -d ${HOME}/dev ]; then
+  mkdir ${HOME}/dev/
+fi
 basedir="${HOME}/dev"
 repourl="https://github.com/LukasDoesDev/dotfiles.git"
 
 cd $basedir
 git clone $repourl
-source ${HOME}/dotfiles/bootstrap.sh
+source ${basedir}/dotfiles/bootstrap.sh
 
 } # This ensures the entire script is downloaded.
