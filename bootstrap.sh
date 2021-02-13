@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 cd "$(dirname "${BASH_SOURCE}")";
 
 git pull origin master;
@@ -11,6 +13,9 @@ function doIt() {
 		--exclude "README.md" \
 		-avh --no-perms . ~; # "-ahv" = archive verbose human-readable
 	source ~/.bash_profile;
+        sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+               https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        nvim -c "PlugInstall
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
