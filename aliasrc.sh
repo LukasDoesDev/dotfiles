@@ -25,7 +25,18 @@ alias yt-dl='youtube-dl --add-metadata -i'
 alias paci='sudo pacman -S'
 alias pacr='sudo pacman -R'
 alias diff='icdiff'
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias c='xclip'
+alias p='xclip -o'
+
+# Git shortcuts
+alias ginit='git init'
+alias gadd='git add'
+alias gco='git commit'
+alias gcom='git commit -m'
+alias gpush='git push'
+alias gbranch='git branch'
+alias gradd='git remote add'
+alias gstat='git status'
 
 # Color stuffs
 alias grep='grep --color=auto'
