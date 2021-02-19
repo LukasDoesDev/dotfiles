@@ -27,6 +27,7 @@ alias pacr='sudo pacman -R'
 alias diff='icdiff'
 alias c='xclip'
 alias p='xclip -o'
+alias autoremove='sudo pacman -Qtdq | sudo pacman -Rns -'
 
 # Git shortcuts
 alias ginit='git init'
