@@ -40,6 +40,10 @@ alias gpul='git pull'
 alias gbranch='git branch'
 alias gradd='git remote add'
 alias gstat='git status'
+function gsd( )
+{
+  git --git-dir=$1/.git --work-tree=$1 status
+}
 
 # Color stuffs
 alias grep='grep --color=auto'
