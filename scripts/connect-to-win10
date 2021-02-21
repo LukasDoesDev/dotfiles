@@ -1,0 +1,3 @@
+#!/bin/bash
+
+virt-viewer -c qemu:///system Windows10
