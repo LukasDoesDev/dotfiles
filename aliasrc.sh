@@ -45,6 +45,43 @@ function gsd( )
   git --git-dir=$1/.git --work-tree=$1 status
 }
 
+function stringContain ( )
+{
+  # echo first arg  : $1
+  # echo second arg : $2
+  [ -z "${2##*$1*}" ];
+}
+
+function gsda( )
+{
+  for file in ./* ; do
+    if [[ -d "$file" && ! -L "$file" && -d "$file/.git" && ! -L "$file/.git" ]]; then
+
+      git_status=`gsd $file`
+      substr1="working tree clean"
+      substr2="not a git repository"
+
+      if stringContain "$substr1" "$git_status"; then
+        echo "$file skipped (working tree clean)"
+        continue
+      fi
+
+      if stringContain "$substr2" "$git_status"; then
+        echo "$file skipped (not a git repo)"
+        continue
+      fi
+
+
+      echo
+      echo GIT STATUS:
+      gsd $file
+      echo
+    else
+      echo "$file skipped (not a dir or does not have .git subdirectory)"
+    fi;
+  done
+}
+
 # Color stuffs
 alias grep='grep --color=auto'
 alias grep='grep --color=auto'
