@@ -39,13 +39,13 @@ alias gpush='git push'
 alias gpul='git pull'
 alias gbranch='git branch'
 alias gradd='git remote add'
-alias gstat='git status'
+alias gs='git status'
 function gsd( )
 {
   git --git-dir=$1/.git --work-tree=$1 status
 }
 
-function stringContain ( )
+function stringContain( )
 {
   # echo first arg  : $1
   # echo second arg : $2
