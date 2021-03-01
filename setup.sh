@@ -10,6 +10,6 @@ repourl="https://github.com/LukasDoesDev/dotfiles.git"
 
 cd $basedir
 git clone $repourl
-source ${basedir}/dotfiles/bootstrap.sh
+${basedir}/dotfiles/bootstrap.sh --force
 
 } # This ensures the entire script is downloaded.
