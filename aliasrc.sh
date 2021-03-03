@@ -25,8 +25,6 @@ alias yt-dl='youtube-dl --add-metadata -i'
 alias paci='sudo pacman -S'
 alias pacr='sudo pacman -R'
 alias diff='icdiff'
-alias c='xclip'
-alias p='xclip -o'
 alias autoremove='sudo pacman -Qtdq | sudo pacman -Rns -'
 alias yt-dl-audio='yt-dl -f "bestaudio[ext=m4a]"'
 
