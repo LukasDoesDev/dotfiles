@@ -90,10 +90,6 @@ alias week='date +%V'
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 
-for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-	alias "${method}"="lwp-request -m '${method}'"
-done
-
 function conf( )
 {
 	if [[ "$1" = 'nvim' ]]; then
