@@ -8,7 +8,6 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
 
 # Shortcuts, verbosity
 alias ls='ls -hF --group-directories-first --color=auto'
