@@ -103,6 +103,8 @@ function conf( )
 	elif [[ "$1" = 'bash_profile' ]]; then
 		e ~/dev/dotfiles/.bash_profile
 		source ~/dev/dotfiles/.bash_profile
+	elif [[ "$1" = 'status' ]]; then
+		e ~/dev/dotfiles/.dwm/status.sh
 	elif [[ "$1" = 'sync' ]]; then
     ~/dev/dotfiles/bootstrap.sh
 	else
@@ -113,6 +115,7 @@ function conf( )
 		echo aliases
 		echo bashrc
 		echo bash_profile
+    echo status
     echo sync
 	fi
 }
