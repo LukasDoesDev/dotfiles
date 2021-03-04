@@ -3,29 +3,91 @@
 # Use neovim for vim when possible.
 command -v nvim >/dev/null && alias vim='nvim' vimdiff='nvim -d'
 
-# Easier navigation: .., ..., ...., ....., ~ and -
+# Easier navigation:
+alias cd..='cd ..'
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
+alias u='cd ..'
+alias uu='cd ../..'
+alias uuu='cd ../../..'
 
 # Shortcuts, verbosity
-alias ls='ls -hF --group-directories-first --color=auto'
-alias cat='cat -n'
-alias mkd='mkdir -pv'
-alias cp='cp -iv'
-alias mv='mv -iv'
-alias rm='rm -iv'
-alias e='$EDITOR'
-alias v='$EDITOR'
-alias cls='clear && ls'
+alias mkd='mkdir -pv' # Create parent dirs on demand
+alias e='$EDITOR' # Alias e to the editor
+alias cls='clear && ls' # Clear and list files
+alias diff='icdiff'
+alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort" # View mounted devices
+alias gh='history | grep'
+alias c='clear'
+alias sha1='openssl sha1'
+alias h='history'
+alias j='jobs -l'
+alias ff='firefox'
+
+# Consoom
 alias yt='youtube-viewer'
 alias yt-dl='youtube-dl --add-metadata -i'
-alias paci='sudo pacman -S'
-alias pacr='sudo pacman -R'
-alias diff='icdiff'
-alias autoremove='sudo pacman -Qtdq | sudo pacman -Rns -'
 alias yt-dl-audio='yt-dl -f "bestaudio[ext=m4a]"'
+
+# Confirmation
+alias cp='cp -i' # Add confirmation
+alias mv='mv -i' # Add confirmation
+alias rm='rm -i' # Add confirmation
+alias ln='ln -i' # Add confirmation
+
+# Verbose output
+alias cp='cp -v' # Add verbose output
+alias mv='mv -v' # Add verbose output
+alias rm='rm -v' # Add verbose output
+alias ln='ln -v' # Add verbose output
+alias cat='cat -n' # Add line numbering
+
+# Preserve root
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+alias rm='rm --preserve-root'
+
+# Pacman
+alias paci='sudo pacman -Sy' # Pac-install
+alias pacr='sudo pacman -R' # Pac-remove
+alias pacu='sudo pacman -Syu' # Pac-update
+alias autoremove='sudo pacman -Qtdq | sudo pacman -Rns -'
+
+# Networking
+alias fastping='ping -c 20 -i 0.2'
+alias header='curl -I'
+alias ports='netstat -tulanp'
+
+# Color stuffs
+alias grep='grep --color=auto'
+alias grep='grep --color=auto'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias ccat='highlight --out-format=ansi -n'
+
+# Get week number
+alias week='date +%V'
+
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
+
+# LS stuff
+alias ls='ls -hF --group-directories-first --color=auto'
+alias l='ls'
+alias la='ls -a'
+alias lal='ls -al'
+alias ll='ls -l'
+alias left='ls -t -1' # Where you left off
+alias du='du -h'
+alias t='tree'
+
+# Python shortcuts
+alias ve='virtualenv venv'
+alias va='source ./venv/bin/activate'
 
 # Git shortcuts
 alias ginit='git init'
@@ -78,17 +140,6 @@ function gsda( )
     fi;
   done
 }
-
-# Color stuffs
-alias grep='grep --color=auto'
-alias grep='grep --color=auto'
-alias ccat='highlight --out-format=ansi -n'
-
-# Get week number
-alias week='date +%V'
-
-# Print each PATH entry on a separate line
-alias path='echo -e ${PATH//:/\\n}'
 
 function conf( )
 {
