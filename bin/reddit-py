@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+REDDIT_PY_LOCATION="$HOME/dev/reddit-py"
+cd $REDDIT_PY_LOCATION
+
+source venv/bin/activate
+
+python $REDDIT_PY_LOCATION/main.py
