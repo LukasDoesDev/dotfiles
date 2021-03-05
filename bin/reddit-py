@@ -6,4 +6,4 @@ cd $REDDIT_PY_LOCATION
 
 source venv/bin/activate
 
-python $REDDIT_PY_LOCATION/main.py
+python $REDDIT_PY_LOCATION/main.py $1
