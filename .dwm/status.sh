@@ -11,13 +11,13 @@ tme(){
 }
 
 wthr() {
-  wttrin=$(curl -s 'wttr.in/Helsinki?format="%t"')
+  wttrin=$(curl -s 'wttr.in/Helsinki?format=%t')
   echo -e "$wttrin"
 }
 
 xmr_price() {
   xmr_eur=$(curl -s 'https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=EUR' | jq -r '.EUR')
-  echo -e "$xmr_eur"
+  echo -e "$xmr_eur€"
 }
 
 while true; do
