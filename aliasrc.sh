@@ -51,7 +51,7 @@ alias chgrp='chgrp --preserve-root'
 alias rm='rm --preserve-root'
 
 # Pacman
-alias paci='sudo pacman -Sy' # Pac-install
+alias paci='sudo pacman -S' # Pac-install
 alias pacr='sudo pacman -R' # Pac-remove
 alias pacu='sudo pacman -Syu' # Pac-update
 alias autoremove='sudo pacman -Qtdq | sudo pacman -Rns -'
@@ -84,6 +84,7 @@ alias ll='ls -l'
 alias left='ls -t -1' # Where you left off
 alias du='du -h'
 alias t='tree'
+alias getsizes='sudo du -shc .[!.]* * | sort -rh'
 
 # Python shortcuts
 alias ve='virtualenv venv'
