@@ -21,6 +21,6 @@ xmr_price() {
 }
 
 while true; do
-  xsetroot -name " ⛅ $(wthr) | 📅 $(dte) | ⏰ $(tme) | 🇲 $(xmr_price) "
+  xsetroot -name " ⛅ $(wthr) | 📅 $(dte) | 🕑 $(tme) | 🇲 $(xmr_price) "
   sleep 10s
 done
