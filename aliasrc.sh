@@ -25,6 +25,7 @@ alias sha1='openssl sha1'
 alias h='history'
 alias j='jobs -l'
 alias ff='firefox'
+alias length='wc -l'
 
 # Consoom
 alias yt='youtube-viewer'
