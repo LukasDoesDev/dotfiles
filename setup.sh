@@ -5,7 +5,10 @@ set -e
 if [ ! -d ${HOME}/dev ]; then
   mkdir ${HOME}/dev/
 fi
-basedir="${HOME}/dev"
+if [ ! -d ${HOME}/dev/rice ]; then
+  mkdir ${HOME}/dev/rice
+fi
+basedir="${HOME}/dev/rice"
 repourl="https://github.com/LukasDoesDev/dotfiles.git"
 
 cd $basedir

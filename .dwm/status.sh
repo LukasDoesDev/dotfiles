@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 dte(){
   dte="$(date +"%d.%m.%Y")"
@@ -6,8 +6,27 @@ dte(){
 }
 
 tme(){
-  tme="$(date +"%H:%M")"
-  echo -e "$tme"
+  time="$(date +"%H:%M")"
+  
+  clock=$(date '+%I')
+
+  case "$clock" in
+	  "00") clockIcon="🕛" ;;
+	  "01") clockIcon="🕐" ;;
+	  "02") clockIcon="🕑" ;;
+	  "03") clockIcon="🕒" ;;
+	  "04") clockIcon="🕓" ;;
+	  "05") clockIcon="🕔" ;;
+	  "06") clockIcon="🕕" ;;
+	  "07") clockIcon="🕖" ;;
+	  "08") clockIcon="🕗" ;;
+	  "09") clockIcon="🕘" ;;
+	  "10") clockIcon="🕙" ;;
+	  "11") clockIcon="🕚" ;;
+	  "12") clockIcon="🕛" ;;
+  esac
+
+  echo -e "$clockIcon $time"
 }
 
 wthr() {
@@ -16,11 +35,10 @@ wthr() {
 }
 
 xmr_price() {
-  xmr_eur=$(curl -s 'https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=EUR' | jq -r '.EUR')
+  # xmr_eur=$(curl -s 'https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=EUR' | jq -r '.EUR')
+  xmr_eur="ratelimited"
   echo -e "$xmr_eur€"
 }
 
-while true; do
-  xsetroot -name " ⛅ $(wthr) | 📅 $(dte) | 🕑 $(tme) | 🇲 $(xmr_price) "
-  sleep 10s
-done
+# Add tons of space to account for systray
+echo " ⛅ $(wthr) | 📅 $(dte) | $(tme) | 🇲 $(xmr_price)     ."

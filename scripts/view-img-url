@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e # Quit on error
+filename=$(basename "$1")
+mkdir -p /tmp/view-img-url
+cd /tmp/view-img-url
+if [[ ! -r $filename ]]; then
+  wget "$1"
+fi
+sxiv $filename -a -f
+

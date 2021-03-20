@@ -24,6 +24,8 @@ fi
 setxkbmap 'fi'
 flameshot &
 
-~/.dwm/status.sh &
+~/.dwm/statusLoop.sh &
+
+xrdb ~/.Xresources
 
 exec dwm

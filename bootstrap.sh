@@ -13,8 +13,8 @@ function doIt() {
 		--exclude "README.md" \
 		-avh --no-perms . ~; # "-ahv" = archive verbose human-readable
 	source ~/.bash_profile;
-        sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-               https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then

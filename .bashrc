@@ -6,7 +6,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-shopt -s autocd #Allows you to cd into directory merely by typing the directory name.
+stty -ixon # Disable Ctrl+S and Ctrl+Q
+shopt -s autocd # Allows you to cd into directory merely by typing the directory name.
 
 # Original prompt
 # PS1='[\u@\h \W]\$ '
@@ -15,6 +16,8 @@ shopt -s autocd #Allows you to cd into directory merely by typing the directory 
 NVIM_HOME=~/.nvim
 export EDITOR='nvim'
 export VISUAL='nvim'
+export TERMINAL='st'
+export BROWSER='firefox'
 
 # Set prompts
 export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"

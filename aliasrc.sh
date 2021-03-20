@@ -13,7 +13,12 @@ alias u='cd ..'
 alias uu='cd ../..'
 alias uuu='cd ../../..'
 
-# Shortcuts, verbosity
+# Shortcuts
+alias sdn="sudo shutdown now"
+alias p="sudo pacman"
+alias g="git"
+alias ka="killall"
+alias SS="sudo systemctlCreate parent dirs on "
 alias mkd='mkdir -pv' # Create parent dirs on demand
 alias e='$EDITOR' # Alias e to the editor
 alias cls='clear && ls' # Clear and list files
@@ -24,13 +29,13 @@ alias c='clear'
 alias sha1='openssl sha1'
 alias h='history'
 alias j='jobs -l'
-alias ff='firefox'
 alias length='wc -l'
+alias sxiv='sxiv -a'
 
 # Consoom
-alias yt='youtube-viewer'
-alias yt-dl='youtube-dl --add-metadata -i'
-alias yt-dl-audio='yt-dl -f "bestaudio[ext=m4a]"'
+alias ytv='youtube-viewer'
+alias yt='youtube-dl --add-metadata -ic'
+alias yta='youtube-dl --add-metadata -xic'
 
 # Confirmation
 alias cp='cp -i' # Add confirmation
@@ -91,6 +96,30 @@ alias getsizes='sudo du -shc .[!.]* * | sort -rh'
 alias ve='virtualenv venv'
 alias va='source ./venv/bin/activate'
 
+# Configuration
+confdir="$HOME/dev/rice/dotfiles"
+function confls( )
+{
+  echo "csy  - sync config"
+  echo "csyf - force sync config"
+  echo "cnv  - neovim config"
+  echo "car  - edit aliasrc"
+  echo "cbr  - edit bashrc"
+  echo "cbp  - edit bash_profile"
+  echo "cst  - edit dwm status thing"
+  echo "cxr  - edit xresources"
+  echo "cxi  - edit .xinitrc"
+}
+alias csy="$confdir/bootstrap.sh ; source $HOME/.bash_profile"
+alias csyf="$confdir/bootstrap.sh --force ; source $HOME/.bash_profile"
+alias cnv="$EDITOR $confdir/dev/dotfiles/.config/nvim/init.vim ; csyf"
+alias car="$EDITOR $confdir/aliasrc.sh ; csyf"
+alias cbr="$EDITOR $confdir/.bashrc ; csyf"
+alias cbp="$EDITOR $confdir/bash_profile ; csyf"
+alias cst="$EDITOR $confdir/.dwm/status.sh ; csyf"
+alias cxr="$EDITOR $confdir/.Xresources ; csyf ; xrdb -merge $HOME/.Xresources"
+alias cxi="$EDITOR $confdir/.xinitrc ; csyf"
+
 # Git shortcuts
 alias ginit='git init'
 alias gadd='git add'
@@ -108,8 +137,6 @@ function gsd( )
 
 function stringContain( )
 {
-  # echo first arg  : $1
-  # echo second arg : $2
   [ -z "${2##*$1*}" ];
 }
 
@@ -133,8 +160,7 @@ function gsda( )
       fi
 
 
-      echo
-      echo GIT STATUS:
+      echo "### $file GIT STATUS:"
       gsd $file
       echo
     else
@@ -143,35 +169,6 @@ function gsda( )
   done
 }
 
-function conf( )
-{
-	if [[ "$1" = 'nvim' ]]; then
-		e ~/dev/dotfiles/.config/nvim/init.vim
-	elif [[ "$1" = 'aliases' ]]; then
-		e ~/dev/dotfiles/aliasrc.sh
-		source ~/dev/dotfiles/aliasrc.sh
-	elif [[ "$1" = 'bashrc' ]]; then
-		e ~/dev/dotfiles/.bashrc
-		source ~/dev/dotfiles/.bashrc
-	elif [[ "$1" = 'bash_profile' ]]; then
-		e ~/dev/dotfiles/.bash_profile
-		source ~/dev/dotfiles/.bash_profile
-	elif [[ "$1" = 'status' ]]; then
-		e ~/dev/dotfiles/.dwm/status.sh
-	elif [[ "$1" = 'sync' ]]; then
-    ~/dev/dotfiles/bootstrap.sh
-	else
-		echo Lukas\'s configuration utility
-		if [[ "$1" != '' ]]; then sh -c "echo \"$1\" config not found"; fi
-		echo Configs:
-		echo nvim
-		echo aliases
-		echo bashrc
-		echo bash_profile
-    echo status
-    echo sync
-	fi
-}
 
 function colorgrid( )
 {
