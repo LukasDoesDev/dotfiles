@@ -44,3 +44,7 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
+# Start default WM after start (if tty1 and not root user)
+if [[ "$(tty)" == '/dev/tty1' && "$USER" != 'root' ]]; then
+	exec startx
+fi
