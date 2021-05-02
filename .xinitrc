@@ -12,13 +12,14 @@ eval `ssh-agent -s`
 
 
 
-WALLPAPER="$HOME/wallpapers/black_orange_arch.jpg"
+WALLPAPER="$HOME/wallpapers/clean arch.png"
+# WALLPAPER="$HOME/wallpapers/windows_jk_archlinux.jpg"
 
 picom & 
 dunst &
 
 if [ -r "$WALLPAPER" ]; then
-    feh --bg-scale $WALLPAPER &
+    feh --bg-scale "$WALLPAPER" &
 fi
 
 setxkbmap 'fi'

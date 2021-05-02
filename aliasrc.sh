@@ -18,7 +18,7 @@ alias sdn="sudo shutdown now"
 alias p="sudo pacman"
 alias g="git"
 alias ka="killall"
-alias SS="sudo systemctlCreate parent dirs on "
+alias SS="sudo systemctl"
 alias mkd='mkdir -pv' # Create parent dirs on demand
 alias e='$EDITOR' # Alias e to the editor
 alias cls='clear && ls' # Clear and list files
@@ -29,8 +29,25 @@ alias c='clear'
 alias sha1='openssl sha1'
 alias h='history'
 alias j='jobs -l'
-alias length='wc -l'
 alias sxiv='sxiv -a'
+
+# Navigation
+alias choose='find | fzf'
+alias chooseMultiple='find | fzf -m'
+alias chooseDir='find -type d | fzf'
+alias chooseDirs='find -type d | fzf -m'
+alias chooseFile='find -type f | fzf'
+alias chooseFiles='find -type f | fzf -m'
+alias rmc='rm -rf "$(choose)"'
+alias fcd='cd "$(chooseDir)"'
+alias oc='xdg-open "$(choose)"'
+alias ocm='chooseMultiple | xargs -0 xdg-open'
+alias ocd='xdg-open "$(chooseDir)"'
+alias ocdm='chooseDirs | xargs -0 xdg-open'
+alias ocf='xdg-open "$(chooseFile)"'
+alias ocfm='chooseFiles | xargs -0 xdg-open'
+
+alias pmove='rsync --progress -auv'
 
 # Consoom
 alias ytv='youtube-viewer'
@@ -57,6 +74,10 @@ alias chgrp='chgrp --preserve-root'
 alias rm='rm --preserve-root'
 
 # Pacman
+function pacsi( )
+{
+  sudo printf "" && sudo pacman -Ss $1 --color=always | less -r
+}
 alias paci='sudo pacman -S' # Pac-install
 alias pacr='sudo pacman -R' # Pac-remove
 alias pacu='sudo pacman -Syu' # Pac-update
@@ -68,8 +89,6 @@ alias header='curl -I'
 alias ports='netstat -tulanp'
 
 # Color stuffs
-alias grep='grep --color=auto'
-alias grep='grep --color=auto'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -88,6 +107,7 @@ alias la='ls -a'
 alias lal='ls -al'
 alias ll='ls -l'
 alias left='ls -t -1' # Where you left off
+alias lsless='ls -al --color=always | less -r'
 alias du='du -h'
 alias t='tree'
 alias getsizes='sudo du -shc .[!.]* * | sort -rh'
@@ -109,6 +129,9 @@ function confls( )
   echo "cst  - edit dwm status thing"
   echo "cxr  - edit xresources"
   echo "cxi  - edit .xinitrc"
+  echo "cfo  - edit global fonts and then fc-cache"
+  echo "cgc  - edit grub config"
+  echo "applygrub - grub-mkconfig"
 }
 alias csy="$confdir/bootstrap.sh ; source $HOME/.bash_profile"
 alias csyf="$confdir/bootstrap.sh --force ; source $HOME/.bash_profile"
@@ -119,6 +142,9 @@ alias cbp="$EDITOR $confdir/bash_profile ; csyf"
 alias cst="$EDITOR $confdir/.dwm/status.sh ; csyf"
 alias cxr="$EDITOR $confdir/.Xresources ; csyf ; xrdb -merge $HOME/.Xresources"
 alias cxi="$EDITOR $confdir/.xinitrc ; csyf"
+alias cfo="sudo $EDITOR /etc/fonts/local.conf ; fc-cache"
+alias cgc="sudo printf '' && sudo $EDITOR /etc/default/grub"
+alias applygrub="sudo printf '' && sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 # Git shortcuts
 alias ginit='git init'
@@ -201,4 +227,12 @@ function colorgrid( )
         iter=$[$iter+1]
         printf '\r\n'
     done
+}
+
+
+# PulseAudio Loopback
+function paloop( )
+{
+  pactl load-module module-null-sink sink_name=PALoop
+  pactl load-module module-loopback sink=PALoop
 }
