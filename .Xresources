@@ -39,6 +39,7 @@
 
 !! DWM
 dwm.borderpx: 2
+dwm.gappx: 20
 dwm.normbgcolor: #1f1d27
 dwm.selfgcolor: #eeeeee
 dwm.selbgcolor: #f59542
