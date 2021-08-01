@@ -1,1 +1,3 @@
+#!/bin/sh
+
 cat .local/share/lukas-dots/emoji

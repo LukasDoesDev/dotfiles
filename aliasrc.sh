@@ -30,6 +30,8 @@ alias sha1='openssl sha1'
 alias h='history'
 alias j='jobs -l'
 alias sxiv='sxiv -a'
+alias sf='tree -f -i | grep' # search file
+alias sfa='tree -f -i -a | grep' # search file al all
 
 # Navigation
 alias choose='find | fzf'
@@ -195,6 +197,37 @@ function gsda( )
   done
 }
 
+# Scrap Mechanic stuff
+# Requires
+# "~/games/sm/app" to be symlinked to "~/.steam/steam/steamapps/common/Scrap Mechanic/"
+# and
+# "~/games/sm/appdata" to be symlinked to "~/.steam/steam/steamapps/compatdata/387990/pfx/drive_c/users/steamuser/Application Data/Axolot Games/Scrap Mechanic/User/User_*your steamid here*"
+function sm_devmode_on( )
+{
+  SurvivalGame_file_path="$HOME/games/sm/app/Survival/Scripts/game/SurvivalGame.lua"
+  sed 's/if self.sv.saved.data and self.sv.saved.data.dev then/if true or self.sv.saved.data and self.sv.saved.data.dev then/' $SurvivalGame_file_path -i
+}
+function sm_devmode_off( )
+{
+  SurvivalGame_file_path="$HOME/games/sm/app/Survival/Scripts/game/SurvivalGame.lua"
+  sed 's/if true or self.sv.saved.data and self.sv.saved.data.dev then/if self.sv.saved.data and self.sv.saved.data.dev then/' $SurvivalGame_file_path -i
+}
+
+function rec_screen( )
+{
+  screen_grep_name=$(xrandr --listactivemonitors | awk '(NR>1)' | awk '{ print $4 }' | dmenu)
+  screen_combo=$(xrandr --listactivemonitors | awk '(NR>1)' | grep "$screen_grep_name" | awk '{print $3 }')
+
+  screen_resolution_x=$(echo $screen_combo | cut -d'+' -f1 | cut -d'x' -f1 | cut -d'/' -f1)
+  screen_resolution_y=$(echo $screen_combo | cut -d'+' -f1 | cut -d'x' -f2 | cut -d'/' -f1)
+  screen_resolution=$(echo "${screen_resolution_x}x${screen_resolution_y}")
+
+  screen_offset_x=$(echo $screen_combo | cut -d'+' -f2)
+  screen_offset_y=$(echo $screen_combo | cut -d'+' -f3)
+  screen_offset=$(echo "${screen_offset_x},${screen_offset_y}")
+  
+  ffmpeg -f x11grab -s $screen_resolution -i ":0.0+${screen_offset}" /tmp/out.mkv
+}
 
 function colorgrid( )
 {
@@ -235,4 +268,72 @@ function paloop( )
 {
   pactl load-module module-null-sink sink_name=PALoop
   pactl load-module module-loopback sink=PALoop
+}
+
+function pathsame( )
+{
+  path1="$1"
+  path2="$2"
+
+  cd "$path1"
+  output1=$(tree -f -i)
+  cd -
+
+  cd "$path2"
+  output2=$(tree -f -i)
+  cd -
+
+  #comm -12 <(sort <(echo $output1)) <(sort <(echo $output2))
+  grep -f <(echo $output1) <(echo $output2)
+  #printf "$output1\n\n"
+  #printf "$output2\n\n"
+}
+
+function pathsame2( )
+{
+  find -type f -print0 |
+    awk -F/ 'BEGIN { RS="\0" } { n=$NF } k[n]==1 { print p[n]; } k[n] { print $0 } { p[n]=$0; k[n]++ }'
+}
+
+function pathsame3( )
+{
+  prefix="pathsame"
+
+  # Create a temporary directory. For accurate results we need
+  # to be sure it is empty. This is one way to do this: create
+  # an temp dir that is garanteed to not exist yet.
+  #
+  # If you want to keep the "outputdir" with the results, make sure
+  # output dir you use does not contain files you want to keep, because
+  # files will be removed from it by this script! Better yet, make
+  # sure it is empty before starting this script.
+  #
+  outputdir=$(mktemp --tmpdir -d "${prefix}.XXXXXXXXXX")   # ensures new unique directory
+  trap "rm -r $outputdir" INT HUP QUIT ABRT ALRM TERM EXIT # ensures it is deleted when script ends
+
+  # Search the directories given as arguments, and process
+  # the paths of alle files one by one in a loop.
+  #
+  find "$@" -type f | while read path ; do
+    filename="${path##*/}"
+    echo "$path" >>"${outputdir}/${filename}.txt"
+  done
+
+  # Finally, if you want to end up with only file names that
+  # occur more than once, delete all output files that contain
+  # only one line.
+  #
+  for outputfile in $outputdir/*.txt ; do
+    linecount=$(wc -l "$outputfile" | sed 's/ .*//')  # count lines in it
+    if  [ "$linecount" = "1" ] ; then                 # if only one line
+      rm "$outputfile"                              # remove the file
+    fi
+  done
+
+  # Print the final result
+  #
+  for outputfile in $outputdir/*.txt ; do
+    cat "$outputfile"
+    echo               # empty line to separate groups of same file names
+  done
 }

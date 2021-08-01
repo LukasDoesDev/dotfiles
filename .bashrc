@@ -16,7 +16,7 @@ shopt -s autocd # Allows you to cd into directory merely by typing the directory
 NVIM_HOME=~/.nvim
 export EDITOR='nvim'
 export VISUAL='nvim'
-export TERMINAL='st'
+export TERMINAL='urxvt'
 export BROWSER='firefox'
 
 # Set prompts

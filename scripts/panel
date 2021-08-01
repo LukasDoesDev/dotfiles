@@ -3,15 +3,15 @@
 option=$(echo -e "levels\nwebcam\nclock\nmatrix\nneofetch" | dmenu -p panel)
 
 if [[ "$option" = "levels" ]]; then
-  st -t "Panel - Levels" -e "cava"
+  urxvt -title "Panel - Levels" -e "cava"
 elif [[ "$option" = "webcam" ]]; then
   mplayer tv://device=/dev/video0
 elif [[ "$option" = "clock" ]]; then
-  st -t "Panel - Clock" -e tty-clock
+  urxvt -title "Panel - Clock" -e tty-clock
 elif [[ "$option" = "matrix" ]]; then
-  st -t "Panel - Matrix" -e "cmatrix"
+  urxvt -title "Panel - Matrix" -e "cmatrix"
 elif [[ "$option" = "neofetch" ]]; then
-  st -t "Panel - Neofetch" -e bash -c "neofetch; cat"
+  urxvt -title "Panel - Neofetch" -e bash -c "neofetch; cat"
 else
   # notify-send "$(echo -e "PANEL NOT FOUND\nAvailable panels: levels, webcam, clock, matrix, neofetch")"
   echo ""
