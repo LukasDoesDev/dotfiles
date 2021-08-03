@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 TOR_LOCATION="/opt/tor-browser_en-US"
 cd $TOR_LOCATION
 $TOR_LOCATION/start-tor-browser.desktop

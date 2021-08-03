@@ -78,7 +78,7 @@ alias rm='rm --preserve-root'
 # Pacman
 function pacsi( )
 {
-  sudo printf "" && sudo pacman -Ss $1 --color=always | less -r
+    sudo printf "" && sudo pacman -Ss $1 --color=always | less -r
 }
 alias paci='sudo pacman -S' # Pac-install
 alias pacr='sudo pacman -R' # Pac-remove
@@ -118,26 +118,32 @@ alias getsizes='sudo du -shc .[!.]* * | sort -rh'
 alias ve='virtualenv venv'
 alias va='source ./venv/bin/activate'
 
+# BeautifulDiscord
+alias beautifuldiscord="$HOME/dev/BeautifulDiscord/run.sh"
+alias bdinject="beautifuldiscord --css $HOME/.config/beautifuldiscord.css"
+alias bduninject="beautifuldiscord --revert"
+
 # Configuration
 confdir="$HOME/dev/rice/dotfiles"
 function confls( )
 {
-  echo "csy  - sync config"
-  echo "csyf - force sync config"
-  echo "cnv  - neovim config"
-  echo "car  - edit aliasrc"
-  echo "cbr  - edit bashrc"
-  echo "cbp  - edit bash_profile"
-  echo "cst  - edit dwm status thing"
-  echo "cxr  - edit xresources"
-  echo "cxi  - edit .xinitrc"
-  echo "cfo  - edit global fonts and then fc-cache"
-  echo "cgc  - edit grub config"
-  echo "applygrub - grub-mkconfig"
+    echo "csy  - sync config"
+    echo "csyf - force sync config"
+    echo "cnv  - neovim config"
+    echo "car  - edit aliasrc"
+    echo "cbr  - edit bashrc"
+    echo "cbp  - edit bash_profile"
+    echo "cst  - edit dwm status thing"
+    echo "cxr  - edit xresources"
+    echo "cxi  - edit .xinitrc"
+    echo "cfo  - edit global fonts and then fc-cache"
+    echo "cgc  - edit grub config"
+    echo "cbd  - edit BeautifulDiscord css"
+    echo "applygrub - grub-mkconfig"
 }
 alias csy="$confdir/bootstrap.sh ; source $HOME/.bash_profile"
 alias csyf="$confdir/bootstrap.sh --force ; source $HOME/.bash_profile"
-alias cnv="$EDITOR $confdir/dev/dotfiles/.config/nvim/init.vim ; csyf"
+alias cnv="$EDITOR $confdir/.config/nvim/init.vim ; csyf"
 alias car="$EDITOR $confdir/aliasrc.sh ; csyf"
 alias cbr="$EDITOR $confdir/.bashrc ; csyf"
 alias cbp="$EDITOR $confdir/bash_profile ; csyf"
@@ -146,6 +152,7 @@ alias cxr="$EDITOR $confdir/.Xresources ; csyf ; xrdb -merge $HOME/.Xresources"
 alias cxi="$EDITOR $confdir/.xinitrc ; csyf"
 alias cfo="sudo $EDITOR /etc/fonts/local.conf ; fc-cache"
 alias cgc="sudo printf '' && sudo $EDITOR /etc/default/grub"
+alias cbd="$EDITOR $confdir/.config/beautifuldiscord.css ; csyf"
 alias applygrub="sudo printf '' && sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 # Git shortcuts
@@ -160,41 +167,41 @@ alias gradd='git remote add'
 alias gs='git status'
 function gsd( )
 {
-  git --git-dir=$1/.git --work-tree=$1 status
+     git --git-dir=$1/.git --work-tree=$1 status
 }
 
 function stringContain( )
 {
-  [ -z "${2##*$1*}" ];
+    [ -z "${2##*$1*}" ];
 }
 
 function gsda( )
 {
-  for file in ./* ; do
-    if [[ -d "$file" && ! -L "$file" && -d "$file/.git" && ! -L "$file/.git" ]]; then
+    for file in ./* ; do
+        if [[ -d "$file" && ! -L "$file" && -d "$file/.git" && ! -L "$file/.git" ]]; then
 
-      git_status=`gsd $file`
-      substr1="working tree clean"
-      substr2="not a git repository"
+            git_status=`gsd $file`
+            substr1="working tree clean"
+            substr2="not a git repository"
 
-      if stringContain "$substr1" "$git_status"; then
-        echo "$file skipped (working tree clean)"
-        continue
-      fi
+            if stringContain "$substr1" "$git_status"; then
+                echo "$file skipped (working tree clean)"
+                continue
+            fi
 
-      if stringContain "$substr2" "$git_status"; then
-        echo "$file skipped (not a git repo)"
-        continue
-      fi
+            if stringContain "$substr2" "$git_status"; then
+                echo "$file skipped (not a git repo)"
+                continue
+            fi
 
 
-      echo "### $file GIT STATUS:"
-      gsd $file
-      echo
-    else
-      echo "$file skipped (not a dir or does not have .git subdirectory)"
-    fi;
-  done
+            echo "### $file GIT STATUS:"
+            gsd $file
+            echo
+        else
+            echo "$file skipped (not a dir or does not have .git subdirectory)"
+        fi;
+    done
 }
 
 # Scrap Mechanic stuff
@@ -204,29 +211,29 @@ function gsda( )
 # "~/games/sm/appdata" to be symlinked to "~/.steam/steam/steamapps/compatdata/387990/pfx/drive_c/users/steamuser/Application Data/Axolot Games/Scrap Mechanic/User/User_*your steamid here*"
 function sm_devmode_on( )
 {
-  SurvivalGame_file_path="$HOME/games/sm/app/Survival/Scripts/game/SurvivalGame.lua"
-  sed 's/if self.sv.saved.data and self.sv.saved.data.dev then/if true or self.sv.saved.data and self.sv.saved.data.dev then/' $SurvivalGame_file_path -i
+    SurvivalGame_file_path="$HOME/games/sm/app/Survival/Scripts/game/SurvivalGame.lua"
+    sed 's/if self.sv.saved.data and self.sv.saved.data.dev then/if true or self.sv.saved.data and self.sv.saved.data.dev then/' $SurvivalGame_file_path -i
 }
 function sm_devmode_off( )
 {
-  SurvivalGame_file_path="$HOME/games/sm/app/Survival/Scripts/game/SurvivalGame.lua"
-  sed 's/if true or self.sv.saved.data and self.sv.saved.data.dev then/if self.sv.saved.data and self.sv.saved.data.dev then/' $SurvivalGame_file_path -i
+    SurvivalGame_file_path="$HOME/games/sm/app/Survival/Scripts/game/SurvivalGame.lua"
+    sed 's/if true or self.sv.saved.data and self.sv.saved.data.dev then/if self.sv.saved.data and self.sv.saved.data.dev then/' $SurvivalGame_file_path -i
 }
 
 function rec_screen( )
 {
-  screen_grep_name=$(xrandr --listactivemonitors | awk '(NR>1)' | awk '{ print $4 }' | dmenu)
-  screen_combo=$(xrandr --listactivemonitors | awk '(NR>1)' | grep "$screen_grep_name" | awk '{print $3 }')
+    screen_grep_name=$(xrandr --listactivemonitors | awk '(NR>1)' | awk '{ print $4 }' | dmenu)
+    screen_combo=$(xrandr --listactivemonitors | awk '(NR>1)' | grep "$screen_grep_name" | awk '{print $3 }')
 
-  screen_resolution_x=$(echo $screen_combo | cut -d'+' -f1 | cut -d'x' -f1 | cut -d'/' -f1)
-  screen_resolution_y=$(echo $screen_combo | cut -d'+' -f1 | cut -d'x' -f2 | cut -d'/' -f1)
-  screen_resolution=$(echo "${screen_resolution_x}x${screen_resolution_y}")
+    screen_resolution_x=$(echo $screen_combo | cut -d'+' -f1 | cut -d'x' -f1 | cut -d'/' -f1)
+    screen_resolution_y=$(echo $screen_combo | cut -d'+' -f1 | cut -d'x' -f2 | cut -d'/' -f1)
+    screen_resolution=$(echo "${screen_resolution_x}x${screen_resolution_y}")
 
-  screen_offset_x=$(echo $screen_combo | cut -d'+' -f2)
-  screen_offset_y=$(echo $screen_combo | cut -d'+' -f3)
-  screen_offset=$(echo "${screen_offset_x},${screen_offset_y}")
-  
-  ffmpeg -f x11grab -s $screen_resolution -i ":0.0+${screen_offset}" /tmp/out.mkv
+    screen_offset_x=$(echo $screen_combo | cut -d'+' -f2)
+    screen_offset_y=$(echo $screen_combo | cut -d'+' -f3)
+    screen_offset=$(echo "${screen_offset_x},${screen_offset_y}")
+    
+    ffmpeg -f x11grab -s $screen_resolution -i ":0.0+${screen_offset}" /tmp/out.mkv
 }
 
 function colorgrid( )
@@ -266,74 +273,74 @@ function colorgrid( )
 # PulseAudio Loopback
 function paloop( )
 {
-  pactl load-module module-null-sink sink_name=PALoop
-  pactl load-module module-loopback sink=PALoop
+    pactl load-module module-null-sink sink_name=PALoop
+    pactl load-module module-loopback sink=PALoop
 }
 
 function pathsame( )
 {
-  path1="$1"
-  path2="$2"
+    path1="$1"
+    path2="$2"
 
-  cd "$path1"
-  output1=$(tree -f -i)
-  cd -
+    cd "$path1"
+    output1=$(tree -f -i)
+    cd -
 
-  cd "$path2"
-  output2=$(tree -f -i)
-  cd -
+    cd "$path2"
+    output2=$(tree -f -i)
+    cd -
 
-  #comm -12 <(sort <(echo $output1)) <(sort <(echo $output2))
-  grep -f <(echo $output1) <(echo $output2)
-  #printf "$output1\n\n"
-  #printf "$output2\n\n"
+    #comm -12 <(sort <(echo $output1)) <(sort <(echo $output2))
+    grep -f <(echo $output1) <(echo $output2)
+    #printf "$output1\n\n"
+    #printf "$output2\n\n"
 }
 
 function pathsame2( )
 {
-  find -type f -print0 |
-    awk -F/ 'BEGIN { RS="\0" } { n=$NF } k[n]==1 { print p[n]; } k[n] { print $0 } { p[n]=$0; k[n]++ }'
+    find -type f -print0 |
+        awk -F/ 'BEGIN { RS="\0" } { n=$NF } k[n]==1 { print p[n]; } k[n] { print $0 } { p[n]=$0; k[n]++ }'
 }
 
 function pathsame3( )
 {
-  prefix="pathsame"
+    prefix="pathsame"
 
-  # Create a temporary directory. For accurate results we need
-  # to be sure it is empty. This is one way to do this: create
-  # an temp dir that is garanteed to not exist yet.
-  #
-  # If you want to keep the "outputdir" with the results, make sure
-  # output dir you use does not contain files you want to keep, because
-  # files will be removed from it by this script! Better yet, make
-  # sure it is empty before starting this script.
-  #
-  outputdir=$(mktemp --tmpdir -d "${prefix}.XXXXXXXXXX")   # ensures new unique directory
-  trap "rm -r $outputdir" INT HUP QUIT ABRT ALRM TERM EXIT # ensures it is deleted when script ends
+    # Create a temporary directory. For accurate results we need
+    # to be sure it is empty. This is one way to do this: create
+    # an temp dir that is garanteed to not exist yet.
+    #
+    # If you want to keep the "outputdir" with the results, make sure
+    # output dir you use does not contain files you want to keep, because
+    # files will be removed from it by this script! Better yet, make
+    # sure it is empty before starting this script.
+    #
+    outputdir=$(mktemp --tmpdir -d "${prefix}.XXXXXXXXXX")   # ensures new unique directory
+    trap "rm -r $outputdir" INT HUP QUIT ABRT ALRM TERM EXIT # ensures it is deleted when script ends
 
-  # Search the directories given as arguments, and process
-  # the paths of alle files one by one in a loop.
-  #
-  find "$@" -type f | while read path ; do
-    filename="${path##*/}"
-    echo "$path" >>"${outputdir}/${filename}.txt"
-  done
+    # Search the directories given as arguments, and process
+    # the paths of alle files one by one in a loop.
+    #
+    find "$@" -type f | while read path ; do
+        filename="${path##*/}"
+        echo "$path" >>"${outputdir}/${filename}.txt"
+    done
 
-  # Finally, if you want to end up with only file names that
-  # occur more than once, delete all output files that contain
-  # only one line.
-  #
-  for outputfile in $outputdir/*.txt ; do
-    linecount=$(wc -l "$outputfile" | sed 's/ .*//')  # count lines in it
-    if  [ "$linecount" = "1" ] ; then                 # if only one line
-      rm "$outputfile"                              # remove the file
-    fi
-  done
+    # Finally, if you want to end up with only file names that
+    # occur more than once, delete all output files that contain
+    # only one line.
+    #
+    for outputfile in $outputdir/*.txt ; do
+        linecount=$(wc -l "$outputfile" | sed 's/ .*//')  # count lines in it
+        if  [ "$linecount" = "1" ] ; then                 # if only one line
+          rm "$outputfile"                              # remove the file
+        fi
+    done
 
-  # Print the final result
-  #
-  for outputfile in $outputdir/*.txt ; do
-    cat "$outputfile"
-    echo               # empty line to separate groups of same file names
-  done
+    # Print the final result
+    #
+    for outputfile in $outputdir/*.txt ; do
+        cat "$outputfile"
+        echo               # empty line to separate groups of same file names
+    done
 }

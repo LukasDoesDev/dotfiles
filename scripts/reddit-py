@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 REDDIT_PY_LOCATION="$HOME/dev/reddit-py"

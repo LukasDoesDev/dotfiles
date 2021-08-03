@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 option=$(echo -e "levels\nwebcam\nclock\nmatrix\nneofetch" | dmenu -p panel)
 

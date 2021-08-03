@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e # Quit on error
 filename=$(basename "$1")
 mkdir -p /tmp/view-img-url
