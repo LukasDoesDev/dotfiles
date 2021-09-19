@@ -14,10 +14,16 @@ shopt -s autocd # Allows you to cd into directory merely by typing the directory
 
 # Set neovim stuff
 NVIM_HOME=~/.nvim
+
+# Set enviroment variables
 export EDITOR='nvim'
 export VISUAL='nvim'
 export TERMINAL='urxvt'
 export BROWSER='firefox'
+JAVA_HOME='/usr/lib/jvm/java-16-adoptopenjdk'
+[ -d $JAVA_HOME ] && export JAVA_HOME
+ANDROID_SDK_ROOT='/opt/android-sdk'
+[ -d $ANDROID_SDK_ROOT ] && export ANDROID_SDK_ROOT
 
 # Set prompts
 export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
@@ -31,6 +37,8 @@ source ~/aliasrc.sh
 [ -d ~/scripts ] && export PATH="$HOME/scripts:$PATH"    # Add ~/scripts to $PATH if it exists
 [ -d ~/.local/bin ] && export PATH="$HOME/.local/bin:$PATH" # Add ~/.local/bin to $PATH if it exists
 [ -d ~/.cargo/bin ] && export PATH="$HOME/.local/bin:$PATH" # Add ~/.cargo/bin to $PATH if it exists
+[ -d $ANDROID_SDK_ROOT/emulator ] && export PATH="$ANDROID_SDK_ROOT/emulator:$PATH" # Add $ANDROID_SDK_ROOT/emulator to $PATH if it exists
+[ -d ~/.deno/bin ] && export PATH="$HOME/.deno/bin:$PATH"
 
 # Set ls colors
 LS_COLORS='di=1;35:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90:*.png=35:*.gif=36:*.jpg=35:*.c=92:*.jar=33:*.py=93:*.h=90:*.txt=94:*.doc=104:*.docx=104:*.odt=104:*.csv=102:*.xlsx=102:*.xlsm=102:*.rb=31:*.cpp=92:*.sh=92:*.html=96:*.zip=4;33:*.tar.gz=4;33:*.mp4=105:*.mp3=106'
@@ -40,6 +48,7 @@ export LS_COLORS
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+source <(vr completions bash)
 
 # Set manpage colors
 export LESS_TERMCAP_mb=$'\e[1;32m'
@@ -50,6 +59,9 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 export LESSOPEN="|lesspipe.sh %s"
+
+# Set up Keychain
+keychain --eval --agents ssh id_ed25519
 
 # Start default WM after start (if tty1 and not root user)
 if [[ "$(tty)" == '/dev/tty1' && "$USER" != 'root' ]]; then

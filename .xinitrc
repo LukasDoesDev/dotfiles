@@ -7,12 +7,17 @@ fi
 
 
 # SSH funky stuff
-SSH_ASKPASS=/usr/bin/ssh-add
-eval `ssh-agent -s`
+#SSH_ASKPASS=/usr/bin/ssh-add
+#eval $(keychain --eval --quiet)
+#eval `ssh-agent -s`
 
+eval $(gnome-keyring-daemon --start)
+#export SSH_AUTH_SOCK
+#SSH_ASKPASS='/usr/lib/seahorse/ssh-askpass'
+#SSH_ASKPASS='/usr/bin/ssh-add'
 
-
-WALLPAPER="$HOME/wallpapers/clean arch.png"
+#WALLPAPER="$HOME/wallpapers/stuff.jpg"
+WALLPAPER="$HOME/wallpapers/rainbow.png"
 # WALLPAPER="$HOME/wallpapers/windows_jk_archlinux.jpg"
 
 picom & 
@@ -29,4 +34,6 @@ flameshot &
 
 xrdb ~/.Xresources
 
-exec dwm
+#exec dwm
+exec i3
+#exec spectrwm

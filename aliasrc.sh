@@ -16,7 +16,6 @@ alias uuu='cd ../../..'
 # Shortcuts
 alias sdn="sudo shutdown now"
 alias p="sudo pacman"
-alias g="git"
 alias ka="killall"
 alias SS="sudo systemctl"
 alias mkd='mkdir -pv' # Create parent dirs on demand
@@ -32,6 +31,19 @@ alias j='jobs -l'
 alias sxiv='sxiv -a'
 alias sf='tree -f -i | grep' # search file
 alias sfa='tree -f -i -a | grep' # search file al all
+alias countdown='time=5; while (( $time > 0 )); do printf "$time\r"; time="$(expr "$time" - 1)"; sleep 1; done'
+function drb( )
+{
+  docker_img="$1"
+  shift
+  docker run --rm -it $docker_img ${@:-/bin/bash}
+}
+function drbe( )
+{
+  docker_img="$1"
+  shift
+  docker run --rm -it $docker_img --entrypoint ${@:-/bin/bash}
+}
 
 # Navigation
 alias choose='find | fzf'
@@ -42,19 +54,19 @@ alias chooseFile='find -type f | fzf'
 alias chooseFiles='find -type f | fzf -m'
 alias rmc='rm -rf "$(choose)"'
 alias fcd='cd "$(chooseDir)"'
-alias oc='xdg-open "$(choose)"'
+command -v xdg-open &> /dev/null && alias oc='xdg-open "$(choose)"'
 alias ocm='chooseMultiple | xargs -0 xdg-open'
-alias ocd='xdg-open "$(chooseDir)"'
+command -v xdg-open &> /dev/null && alias ocd='xdg-open "$(chooseDir)"'
 alias ocdm='chooseDirs | xargs -0 xdg-open'
-alias ocf='xdg-open "$(chooseFile)"'
+command -v xdg-open &> /dev/null && alias ocf='xdg-open "$(chooseFile)"'
 alias ocfm='chooseFiles | xargs -0 xdg-open'
 
-alias pmove='rsync --progress -auv'
+command -v rsync &> /dev/null && alias pmove='rsync --progress -auv'
 
 # Consoom
-alias ytv='youtube-viewer'
-alias yt='youtube-dl --add-metadata -ic'
-alias yta='youtube-dl --add-metadata -xic'
+command -v youtube-viewer &> /dev/null && alias ytv='youtube-viewer'
+command -v youtube-dl &> /dev/null && alias yt='youtube-dl --add-metadata -ic'
+command -v youtube-dl &> /dev/null && alias yta='youtube-dl --add-metadata -xic'
 
 # Confirmation
 alias cp='cp -i' # Add confirmation
@@ -67,7 +79,6 @@ alias cp='cp -v' # Add verbose output
 alias mv='mv -v' # Add verbose output
 alias rm='rm -v' # Add verbose output
 alias ln='ln -v' # Add verbose output
-alias cat='cat -n' # Add line numbering
 
 # Preserve root
 alias chown='chown --preserve-root'
@@ -103,7 +114,12 @@ alias week='date +%V'
 alias path='echo -e ${PATH//:/\\n}'
 
 # LS stuff
-alias ls='ls -hF --group-directories-first --color=auto'
+if command -v exa &> /dev/null
+then
+    alias ls='exa -hF --group-directories-first --color=auto'
+else
+    alias ls='ls -hF --group-directories-first --color=auto'
+fi
 alias l='ls'
 alias la='ls -a'
 alias lal='ls -al'
@@ -119,9 +135,11 @@ alias ve='virtualenv venv'
 alias va='source ./venv/bin/activate'
 
 # BeautifulDiscord
-alias beautifuldiscord="$HOME/dev/BeautifulDiscord/run.sh"
-alias bdinject="beautifuldiscord --css $HOME/.config/beautifuldiscord.css"
-alias bduninject="beautifuldiscord --revert"
+if [[ -f ~/dev/BeautifulDiscord/run.sh ]] ; then
+    alias beautifuldiscord="$HOME/dev/BeautifulDiscord/run.sh"
+    alias bdinject="beautifuldiscord --css $HOME/.config/beautifuldiscord.css"
+    alias bduninject="beautifuldiscord --revert"
+fi
 
 # Configuration
 confdir="$HOME/dev/rice/dotfiles"
@@ -139,6 +157,7 @@ function confls( )
     echo "cfo  - edit global fonts and then fc-cache"
     echo "cgc  - edit grub config"
     echo "cbd  - edit BeautifulDiscord css"
+    echo "cpc  - edit picom.conf"
     echo "applygrub - grub-mkconfig"
 }
 alias csy="$confdir/bootstrap.sh ; source $HOME/.bash_profile"
@@ -153,56 +172,60 @@ alias cxi="$EDITOR $confdir/.xinitrc ; csyf"
 alias cfo="sudo $EDITOR /etc/fonts/local.conf ; fc-cache"
 alias cgc="sudo printf '' && sudo $EDITOR /etc/default/grub"
 alias cbd="$EDITOR $confdir/.config/beautifuldiscord.css ; csyf"
+alias cpc="$EDITOR $confdir/.config/picom.conf ; csyf"
 alias applygrub="sudo printf '' && sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 # Git shortcuts
-alias ginit='git init'
-alias gadd='git add'
-alias gco='git commit'
-alias gcom='git commit -m'
-alias gpush='git push'
-alias gpul='git pull'
-alias gbranch='git branch'
-alias gradd='git remote add'
-alias gs='git status'
-function gsd( )
-{
-     git --git-dir=$1/.git --work-tree=$1 status
-}
+if command -v git &> /dev/null ; then
+    alias g="git"
+    alias ginit='git init'
+    alias gadd='git add'
+    alias gco='git commit'
+    alias gcom='git commit -m'
+    alias gpush='git push'
+    alias gpul='git pull'
+    alias gbranch='git branch'
+    alias gradd='git remote add'
+    alias gs='git status'
+    function gsd( )
+    {
+         git --git-dir=$1/.git --work-tree=$1 status
+    }
 
-function stringContain( )
-{
-    [ -z "${2##*$1*}" ];
-}
+    function stringContain( )
+    {
+        [ -z "${2##*$1*}" ];
+    }
 
-function gsda( )
-{
-    for file in ./* ; do
-        if [[ -d "$file" && ! -L "$file" && -d "$file/.git" && ! -L "$file/.git" ]]; then
+    function gsda( )
+    {
+        for file in ./* ; do
+            if [[ -d "$file" && ! -L "$file" && -d "$file/.git" && ! -L "$file/.git" ]]; then
 
-            git_status=`gsd $file`
-            substr1="working tree clean"
-            substr2="not a git repository"
+                git_status=`gsd $file`
+                substr1="working tree clean"
+                substr2="not a git repository"
 
-            if stringContain "$substr1" "$git_status"; then
-                echo "$file skipped (working tree clean)"
-                continue
-            fi
+                if stringContain "$substr1" "$git_status"; then
+                    echo "$file skipped (working tree clean)"
+                    continue
+                fi
 
-            if stringContain "$substr2" "$git_status"; then
-                echo "$file skipped (not a git repo)"
-                continue
-            fi
+                if stringContain "$substr2" "$git_status"; then
+                    echo "$file skipped (not a git repo)"
+                    continue
+                fi
 
 
-            echo "### $file GIT STATUS:"
-            gsd $file
-            echo
-        else
-            echo "$file skipped (not a dir or does not have .git subdirectory)"
-        fi;
-    done
-}
+                echo "### $file GIT STATUS:"
+                gsd $file
+                echo
+            else
+                echo "$file skipped (not a dir or does not have .git subdirectory)"
+            fi;
+        done
+    }
+fi
 
 # Scrap Mechanic stuff
 # Requires
