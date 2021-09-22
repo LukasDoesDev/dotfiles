@@ -11,17 +11,19 @@ fi
 #eval $(keychain --eval --quiet)
 #eval `ssh-agent -s`
 
-eval $(gnome-keyring-daemon --start)
+#eval $(gnome-keyring-daemon --start)
 #export SSH_AUTH_SOCK
 #SSH_ASKPASS='/usr/lib/seahorse/ssh-askpass'
 #SSH_ASKPASS='/usr/bin/ssh-add'
 
 #WALLPAPER="$HOME/wallpapers/stuff.jpg"
-WALLPAPER="$HOME/wallpapers/rainbow.png"
+WALLPAPER="$HOME/wallpapers/rainbow-shadow.png"
 # WALLPAPER="$HOME/wallpapers/windows_jk_archlinux.jpg"
 
 picom & 
 dunst &
+
+notify-send 'Hello, World!'
 
 if [ -r "$WALLPAPER" ]; then
     feh --bg-scale "$WALLPAPER" &

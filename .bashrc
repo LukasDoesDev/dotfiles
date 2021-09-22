@@ -30,7 +30,7 @@ export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput se
 export PS2='\[\033[01;34m\]> \[\033[00m\]'
 
 # Source aliases
-source ~/aliasrc.sh
+source ~/.aliases
 
 # Add stuff to path
 [ -d ~/bin ] && export PATH="$HOME/bin:$PATH"        # Add ~/bin to $PATH if it exists
@@ -45,10 +45,12 @@ LS_COLORS='di=1;35:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90:*.pn
 export LS_COLORS
 
 # Node Version Manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-source <(vr completions bash)
+[ -s /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+command -v vr &> /dev/null && source <(vr completions bash)
 
 # Set manpage colors
 export LESS_TERMCAP_mb=$'\e[1;32m'
@@ -61,7 +63,7 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 export LESSOPEN="|lesspipe.sh %s"
 
 # Set up Keychain
-keychain --eval --agents ssh id_ed25519
+command -v keychain && keychain --eval --agents ssh id_ed25519
 
 # Start default WM after start (if tty1 and not root user)
 if [[ "$(tty)" == '/dev/tty1' && "$USER" != 'root' ]]; then

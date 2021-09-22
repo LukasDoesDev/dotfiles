@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+[ ! -f ~/dev/nerd-dictation/nerd-dication ] && (exit 1 ; echo 'nerd-dication not found in ~/dev/nerd-dictation/nerd-dictation')
+command -v tuxi &> /dev/null || (exit 1 ; echo 'Tuxi not found')
+
+while true; do
+    recognized=`~/dev/nerd-dictation/nerd-dictation begin --timeout 6 --numbers-as-digits --output STDOUT`
+    [ -z "$recognized" ] && continue
+    output=`tuxi -r "$recognized"`
+    printf "\e[0;36m> $recognized\n\e[0;32m< $(echo "$output" | sed 's|%20| |g')\n\e[0m"
+    espeak --stdout "$output" | paplay
+done

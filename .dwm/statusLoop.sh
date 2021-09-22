@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd /home/luukas/dev/rice/xblocks && python main.py
+[ -f ~/dev/rice/xblocks/main.py ] && cd ~/dev/rice/xblocks && python main.py

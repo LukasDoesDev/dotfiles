@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+
+[ ! -f ~/dev/nerd-dictation/nerd-dication ] && (exit 1 ; echo 'nerd-dication not found in ~/dev/nerd-dictation/nerd-dictation')
+
+while true; do
+    recognized=`~/dev/nerd-dictation/nerd-dictation begin --timeout 1 --numbers-as-digits --output STDOUT`
+    [ -z "$recognized" ] && continue
+    printf "\e[0;36m> $recognized\n\e[0m"
+    espeak --stdout "$recognized" | paplay
+done
