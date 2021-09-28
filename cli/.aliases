@@ -14,6 +14,7 @@ alias uu='cd ../..'
 alias uuu='cd ../../..'
 
 # Shortcuts
+alias bat="bat --theme TwoDark"
 alias sdn="sudo shutdown now"
 alias p="sudo pacman"
 alias ka="killall"

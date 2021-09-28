@@ -2,17 +2,12 @@
 { # This ensures the entire script is downloaded.
 
     set -e
-    if [ ! -d ${HOME}/dev ]; then
-        mkdir ${HOME}/dev/
-    fi
-    if [ ! -d ${HOME}/dev/rice ]; then
-        mkdir ${HOME}/dev/rice
-    fi
-    basedir="${HOME}/dev/rice"
-    repourl="https://github.com/LukasDoesDev/dotfiles.git"
+    trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
+    trap 'echo "\"${last_command}\" command failed with exit code $?."' EXIT
 
-    cd $basedir
-    git clone $repourl
-    ${basedir}/dotfiles/bootstrap.sh --force
+    mkdir -pv $HOME/dev/rice
+    cd $HOME/dev/rice
+
+    git clone https://github.com/LukasDoesDev/dotfiles.git
 
 } # This ensures the entire script is downloaded.
