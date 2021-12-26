@@ -14,6 +14,7 @@ alias uu='cd ../..'
 alias uuu='cd ../../..'
 
 # Shortcuts
+alias r="fc -s" # Fixes your last command with a substitution e.g r fle=file
 alias bat="bat --theme TwoDark"
 alias sdn="sudo shutdown now"
 alias p="sudo pacman"
@@ -88,14 +89,11 @@ alias chgrp='chgrp --preserve-root'
 alias rm='rm --preserve-root'
 
 # Pacman
-function pacsi( )
-{
-    sudo printf "" && sudo pacman -Ss $1 --color=always | less -r
-}
 alias paci='sudo pacman -S' # Pac-install
 alias pacr='sudo pacman -R' # Pac-remove
 alias pacu='sudo pacman -Syu' # Pac-update
-alias autoremove='sudo pacman -Qtdq | sudo pacman -Rns -'
+#alias autoremove='sudo pacman -Qtdq | sudo pacman -Rns -'
+alias autoremove='yay -Yc'
 
 # Networking
 alias fastping='ping -c 20 -i 0.2'
@@ -146,34 +144,34 @@ fi
 confdir="$HOME/dev/rice/dotfiles"
 function confls( )
 {
-    echo "csy  - sync config"
-    echo "csyf - force sync config"
-    echo "cnv  - neovim config"
-    echo "car  - edit aliasrc"
-    echo "cbr  - edit bashrc"
-    echo "cbp  - edit bash_profile"
-    echo "cst  - edit dwm status thing"
-    echo "cxr  - edit xresources"
-    echo "cxi  - edit .xinitrc"
+    #echo "csy  - sync config"
+    #echo "csyf - force sync config"
+    #echo "cnv  - neovim config"
+    #echo "car  - edit aliasrc"
+    #echo "cbr  - edit bashrc"
+    #echo "cbp  - edit bash_profile"
+    #echo "cst  - edit dwm status thing"
+    #echo "cxr  - edit xresources"
+    #echo "cxi  - edit .xinitrc"
     echo "cfo  - edit global fonts and then fc-cache"
     echo "cgc  - edit grub config"
-    echo "cbd  - edit BeautifulDiscord css"
-    echo "cpc  - edit picom.conf"
+    #echo "cbd  - edit BeautifulDiscord css"
+    #echo "cpc  - edit picom.conf"
     echo "applygrub - grub-mkconfig"
 }
-alias csy="$confdir/bootstrap.sh ; source $HOME/.bash_profile"
-alias csyf="$confdir/bootstrap.sh --force ; source $HOME/.bash_profile"
-alias cnv="$EDITOR $confdir/.config/nvim/init.vim ; csyf"
-alias car="$EDITOR $confdir/aliasrc.sh ; csyf"
-alias cbr="$EDITOR $confdir/.bashrc ; csyf"
-alias cbp="$EDITOR $confdir/bash_profile ; csyf"
-alias cst="$EDITOR $confdir/.dwm/status.sh ; csyf"
-alias cxr="$EDITOR $confdir/.Xresources ; csyf ; xrdb -merge $HOME/.Xresources"
-alias cxi="$EDITOR $confdir/.xinitrc ; csyf"
+#alias csy="$confdir/bootstrap.sh ; source $HOME/.bash_profile"
+#alias csyf="$confdir/bootstrap.sh --force ; source $HOME/.bash_profile"
+#alias cnv="$EDITOR $confdir/.config/nvim/init.vim ; csyf"
+#alias car="$EDITOR $confdir/aliasrc.sh ; csyf"
+#alias cbr="$EDITOR $confdir/.bashrc ; csyf"
+#alias cbp="$EDITOR $confdir/bash_profile ; csyf"
+#alias cst="$EDITOR $confdir/.dwm/status.sh ; csyf"
+#alias cxr="$EDITOR $confdir/.Xresources ; csyf ; xrdb -merge $HOME/.Xresources"
+#alias cxi="$EDITOR $confdir/.xinitrc ; csyf"
 alias cfo="sudo $EDITOR /etc/fonts/local.conf ; fc-cache"
 alias cgc="sudo printf '' && sudo $EDITOR /etc/default/grub"
-alias cbd="$EDITOR $confdir/.config/beautifuldiscord.css ; csyf"
-alias cpc="$EDITOR $confdir/.config/picom.conf ; csyf"
+#alias cbd="$EDITOR $confdir/.config/beautifuldiscord.css ; csyf"
+#alias cpc="$EDITOR $confdir/.config/picom.conf ; csyf"
 alias applygrub="sudo printf '' && sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 # Git shortcuts

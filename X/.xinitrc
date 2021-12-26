@@ -17,7 +17,8 @@ fi
 #SSH_ASKPASS='/usr/bin/ssh-add'
 
 #WALLPAPER="$HOME/wallpapers/stuff.jpg"
-WALLPAPER="$HOME/wallpapers/rainbow-shadow.png"
+#WALLPAPER="$HOME/wallpapers/rainbow-shadow.png"
+WALLPAPER="$HOME/wallpapers/clean arch.png"
 # WALLPAPER="$HOME/wallpapers/windows_jk_archlinux.jpg"
 
 picom & 

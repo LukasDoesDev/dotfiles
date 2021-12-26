@@ -54,7 +54,7 @@ URxvt.iso14755_52: false
 URxvt.urgentOnBell: true
 
 ! How it looks
-URxvt.font: xft:JetBrains Mono:pixelsize=14:antialias=true,xft:Braille:pixelsize=14:antialias=true
+URxvt.font: xft:JetBrains Mono:pixelsize=14:antialias=true,xft:Braille:pixelsize=14:antialias=true,xft:Nerd Font:pixelsize=14:antialias=true
 URxvt.scrollBar: false
 URxvt.scrollBar_right: false
 URxvt.letterSpace: 0

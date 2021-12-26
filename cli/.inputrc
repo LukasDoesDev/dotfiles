@@ -1,2 +1,25 @@
+# The system-wide inputrc usually contains goodies so we will import it
+$include /etc/inputrc
+
+# History stuff
 "\e[A": history-search-backward
 "\e[B": history-search-forward
+
+# Make sure Left/Right move between characters
+"\e[C": forward-char
+"\e[D": backward-char
+
+# Alt + Left/Right move between words
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+
+# Completion
+set completion-ignore-case on
+# Disabled because if I have 2 directories with - and _ it will just reset the text to before the - or _ character, ANNOYING
+#set completion-map-case on
+set colored-stats on
+set mark-symlinked-directories on
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set visible-stats on
+

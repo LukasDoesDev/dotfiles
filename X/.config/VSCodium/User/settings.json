@@ -66,7 +66,7 @@
   },
   "sqltools.useNodeRuntime": true,
   "redhat.telemetry.enabled": false,
-  "workbench.colorTheme": "BeardedTheme Black & Amethyst",
+  //"workbench.colorTheme": "BeardedTheme Black & Amethyst",
   "window.titleBarStyle": "custom",
   "todo-tree.tree.showScanModeButton": false,
   "java.home": "/usr/lib/jvm/java-16-adoptopenjdk",
@@ -74,5 +74,16 @@
   "files.autoGuessEncoding": true,
   "files.associations": {
     "*.mcmeta": "json"
-  }
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "yaml.schemas": {
+    "https://json.schemastore.org/traefik-v2-file-provider.json": "traefik/dynamic/*"
+  },
+  "codetogether.userName": "Lukas",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.smoothScrolling": true
 }
