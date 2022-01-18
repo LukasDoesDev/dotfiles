@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+PACKAGES="$(leftwm-theme list | tail -n +3 | sed 's|Current: ||g' | sed 's|community/||g' | sed 's|: .*||g' | sed 's|   ||g')"
+echo $PACKAGES
+leftwm-theme apply "$(echo -e "$PACKAGES" | dmenu)"

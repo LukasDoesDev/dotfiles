@@ -26,6 +26,7 @@ DEBUG="${DEBUG:-false}"
 # Set enviroment variables
 export EDITOR='nvim'
 export FCEDIT="$EDITOR"
+export HISTFILE="/tmp/.bash-history-$USER"
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000000
 export LESS='--quit-if-one-screen --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4'
@@ -80,17 +81,17 @@ export LESSOPEN="|lesspipe.sh %s"
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 
 # Make many programs' history files not use the root dir
-#export PYTHONHISTFILE=/tmp/.python_history # Does not work
-export NODE_REPL_HISTORY=/tmp/.node_repl_history # Confirmed works
-export REDISCLI_HISTFILE=/tmp/.rediscli_history
-export USQL_HISTORY=/tmp/.usql_history
-export SDCV_HISTFILE=/tmp/.sdcv_history
-export SQLITE_HISTORY=/tmp/.sqlite_history
+#export PYTHONHISTFILE="/tmp/.python_history-$USER" # Does not work
+export NODE_REPL_HISTORY="/tmp/.node_repl_history-$USER" # Confirmed works
+export REDISCLI_HISTFILE="/tmp/.rediscli_history-$USER"
+export USQL_HISTORY="/tmp/.usql_history-$USER"
+export SDCV_HISTFILE="/tmp/.sdcv_history-$USER"
+export SQLITE_HISTORY="/tmp/.sqlite_history-$USER"
 
 $DEBUG && echo 'Setting up Keychain'
 command -v keychain && keychain --eval --agents ssh id_ed25519
 
-# Start default WM after start (if tty1 and not root user)
-if [[ "$(tty)" == '/dev/tty1' && "$USER" != 'root' ]]; then
+# Start default WM after start (no $DISPLAY and tty is tty1 and not root user)
+if [[ -z "${DISPLAY}" && "$(tty)" == '/dev/tty1' && "$USER" != 'root' ]]; then
 	exec startx
 fi

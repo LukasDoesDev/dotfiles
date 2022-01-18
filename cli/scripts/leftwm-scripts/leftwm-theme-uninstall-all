@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+PACKAGES="$(leftwm-theme list | tail -n +3 | sed 's|Current: ||g' | sed 's|community/||g' | sed 's|: .*||g' | sed 's|   ||g')"
+#PACKAGES="$(<lwm-themes)"
+echo Got package list:
+echo "$PACKAGES"
+printf "$PACKAGES" | xargs -I {} --max-procs "$(nproc)" ${SHELL:-"/bin/sh"} -c 'yes yes | leftwm-theme uninstall "{}"'
+

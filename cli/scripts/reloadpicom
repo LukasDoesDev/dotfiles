@@ -1,0 +1,4 @@
+#!/bin/sh
+pkill picom
+picom --experimental-backends
+#picom --experimental-backends &>/dev/null & disown 

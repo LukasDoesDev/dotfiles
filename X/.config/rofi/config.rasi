@@ -1,0 +1,13 @@
+configuration {
+    modi: "window,run,drun,ssh";
+    font: "mono 12";
+    combi-modi: "run,drun";
+    combi-hide-mode-prefix: true;
+    show-icons: true;
+    disable-history: true;
+    width: 900;
+    lines: 15;
+    columns: 1;
+}
+@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
+

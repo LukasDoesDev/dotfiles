@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+PACKAGES="$(leftwm-theme update | tail -n +4 | grep -v "Installed" | sed 's|Current: ||g' | sed 's|community/||g' | sed 's|: .*||g' | sed 's|   ||g')"
+#PACKAGES="$(<lwm-themes)"
+echo Got package list:
+echo "$PACKAGES"
+# max-procs was nproc but the config file would get messed up if using concurrency
+printf "$PACKAGES" | xargs -I {} --max-procs 1 leftwm-theme install {}
+
