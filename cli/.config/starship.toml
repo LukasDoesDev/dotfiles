@@ -1,0 +1,14 @@
+add_newline = false
+
+#[sudo]
+#disabled = false
+
+[cmd_duration]
+show_notifications = true
+
+[hostname]
+ssh_only = false
+
+[username]
+format = "[$user]($style)@"
+show_always = true

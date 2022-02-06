@@ -76,8 +76,9 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     docker
+    docker-compose
     rust
-    zsh-autosuggestions
+    #zsh-autosuggestions
     #zsh-syntax-highlighting
 )
 
@@ -100,8 +101,17 @@ DEBUG="${DEBUG:-false}"
 $DEBUG && echo 'Setting up Node Version Manager'
 [ -s /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
 
-$DEBUG && echo 'Setting up https://velociraptor.run bash completions'
-#command -v vr &> /dev/null && source <(vr completions bash)
+#$DEBUG && echo 'Setting up https://velociraptor.run zsh completions'
+#command -v vr &> /dev/null && source <(vr completions zsh)
+#$DEBUG && echo 'Setting up Spotify TUI zsh completions'
+#command -v spt &> /dev/null && source <(spt --completions zsh)
+$DEBUG && echo 'Setting up Fast Node Manager env and zsh completions'
+eval "$(fnm env --shell=zsh --use-on-cd)"
+eval "$(fnm completions --shell=bash)"
+#$DEBUG && echo 'Setting up Node Version Manager and its zsh completions'
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 $DEBUG && echo 'Setting up Keychain'
 command -v keychain && keychain --eval --agents ssh id_ed25519
@@ -134,8 +144,8 @@ alias uuu='cd ../../..'
 
 # Shortcuts
 alias r='fc -s' # Fixes your last command with a substitution e.g r fle=file
-#alias bat='bat --theme TwoDark'
-alias bat='bat --theme Nord'
+#alias bat='bat --theme Nord'
+alias bat='bat --theme TwoDark'
 alias bats='bat -pp'
 alias sdn='sudo shutdown now'
 alias p='sudo pacman'
@@ -143,6 +153,7 @@ alias ka='killall'
 alias SS='sudo systemctl'
 alias mkd='mkdir -pv' # Create parent dirs on demand
 alias e='$EDITOR' # Alias e to the editor
+alias se='sudoedit'
 alias nf='neofetch'
 #alias diff='icdiff'
 alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort" # View mounted devices
@@ -207,7 +218,7 @@ alias path='echo -e ${PATH//:/\\n}'
 # LS stuff
 if command -v exa &> /dev/null
 then
-    alias ls='exa -hF --group-directories-first --color=auto'
+    alias ls='exa --classify --group-directories-first --color=auto --group --time-style=long-iso --git --icons'
 else
     alias ls='ls -hF --group-directories-first --color=auto'
 fi
@@ -222,7 +233,7 @@ alias t='tree'
 alias getsizes='sudo du -shc .[!.]* * | sort -rh'
 
 # Python shortcuts
-alias ve='virtualenv venv'
+alias ve='python -m venv venv'
 alias va='source ./venv/bin/activate'
 
 # Git shortcuts
@@ -245,12 +256,14 @@ function confls() {
     echo 'czr : $EDITOR ~/.zshrc && source ~/.zshrc'
     echo 'czp : $EDITOR ~/.zprofile && source ~/.zprofile'
     echo 'cze : $EDITOR ~/.zshenv && source ~/.zshenv'
+    echo 'cgc : sudoedit /etc/default/grub && sudo grub-mkconfig -o /boot/grub/grub.cfg'
 }
 alias cbr='$EDITOR ~/.bashrc && source ~/.bashrc'
 alias cbp='$EDITOR ~/.bash_profile && source ~/.bash_profile'
 alias czr='$EDITOR ~/.zshrc && source ~/.zshrc'
 alias czp='$EDITOR ~/.zprofile && source ~/.zprofile'
 alias cze='$EDITOR ~/.zshenv && source ~/.zshenv'
+alias cgc='sudoedit /etc/default/grub && sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 # Xephyr stuff
 function xephyr-starter() {
@@ -263,6 +276,4 @@ function slrop() {
 }
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+

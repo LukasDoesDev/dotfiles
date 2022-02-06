@@ -55,5 +55,41 @@
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "window.titleBarStyle": "custom"
+    "window.titleBarStyle": "custom",
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": false
+    },
+    "[rust]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+    },
+    "[toml]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+    },
+    "[sql]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false,
+    },
+    "terminal.external.linuxExec": "alacritty",
+    "terminal.integrated.fontSize": 14,
+    "editor.fontSize": 14,
+    "editor.fontLigatures": true,
+    "javascript.inlayHints.variableTypes.enabled": true,
+    "typescript.inlayHints.enumMemberValues.enabled": true,
+    "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+    "typescript.inlayHints.variableTypes.enabled": true
 }

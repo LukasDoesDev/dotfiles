@@ -8,10 +8,9 @@ export HISTFILESIZE=1000000000
 export LESS='--quit-if-one-screen --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4'
 export TERMINAL='alacritty'
 export BROWSER='firefox'
-JAVA_HOME='/usr/lib/jvm/java-16-adoptopenjdk'
-[ -d $JAVA_HOME ] && export JAVA_HOME
-ANDROID_SDK_ROOT='/opt/android-sdk'
-[ -d $ANDROID_SDK_ROOT ] && export ANDROID_SDK_ROOT
+[ -d '/usr/lib/jvm/java-16-adoptopenjdk' ] && export JAVA_HOME='/usr/lib/jvm/java-16-adoptopenjdk'
+[ -d '/opt/android-sdk' ] && export ANDROID_SDK_ROOT='/opt/android-sdk'
+[ -d "$HOME/Android/Sdk" ] && export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
 
 # Set ls colors
@@ -29,6 +28,7 @@ path=(
     "$HOME/scripts/leftwm-scripts"
     "$HOME/.cargo/bin"
     "$ANDROID_SDK_ROOT/emulator"
+    "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
     "$HOME/.deno/bin"
     "$path[@]"
 )
@@ -57,9 +57,6 @@ export SQLITE_HISTORY="/tmp/.sqlite_history-$USER"
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
-
-# Manpage path
-export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
